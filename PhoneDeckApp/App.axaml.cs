@@ -110,8 +110,9 @@ public partial class App : Application
         };
 
         var mainWindow = new MainWindow { DataContext = vm };
-        mainWindow.Show();
-        desktop.MainWindow?.Close();
-        desktop.MainWindow = mainWindow;
+        var old = desktop.MainWindow;   // сохраняем старое окно
+        desktop.MainWindow = mainWindow; // сначала ставим новое
+        mainWindow.Show();               // показываем
+        old?.Close();                    // только потом закрываем старое
     }
 }
