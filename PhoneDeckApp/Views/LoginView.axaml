@@ -1,0 +1,48 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PhoneDeckApp.ViewModels"
+             x:Class="PhoneDeckApp.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="380">
+        <Border Background="#16213e" CornerRadius="16" Padding="40">
+            <StackPanel Spacing="16">
+
+                <TextBlock Text="PhoneDeck" FontSize="28" FontWeight="Bold"
+                           Foreground="White" HorizontalAlignment="Center"/>
+                <TextBlock Text="Войдите в аккаунт" FontSize="14"
+                           Foreground="#8892b0" HorizontalAlignment="Center"
+                           Margin="0,0,0,8"/>
+
+                <TextBlock Text="Имя пользователя" Foreground="#8892b0" FontSize="12"/>
+                <TextBox Text="{Binding Username}"
+                         PlaceholderText="Введите логин"
+                         Classes="authInput"/>
+
+                <TextBlock Text="Пароль" Foreground="#8892b0" FontSize="12"/>
+                <TextBox Text="{Binding Password}"
+                         PasswordChar="*"
+                         PlaceholderText="Введите пароль"
+                         Classes="authInput"/>
+                <CheckBox Content="Это мой компьютер (запомнить меня)"
+                          IsChecked="{Binding RememberMe}"
+                          Foreground="#8892b0" FontSize="12"/>
+
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="#ff6b6b" FontSize="12"
+                           IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+                <Button Content="Войти"
+                        Command="{Binding LoginCommand}"
+                        Classes="primaryBtn"
+                        Margin="0,8,0,0"/>
+
+                <Button Content="Нет аккаунта? Зарегистрироваться"
+                        Command="{Binding GoToRegisterCommand}"
+                        Classes="linkBtn"/>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+
+</UserControl>
