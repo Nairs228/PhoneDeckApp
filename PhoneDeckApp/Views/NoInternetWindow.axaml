@@ -1,0 +1,27 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="PhoneDeckApp.Views.NoInternetWindow"
+        Title="Нет подключения"
+        Width="420" Height="220"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        Background="#1a1a2e">
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16" Margin="40">
+        <TextBlock Text="⚠ Нет подключения к интернету"
+                   FontSize="18" FontWeight="Bold"
+                   Foreground="White" HorizontalAlignment="Center"
+                   TextWrapping="Wrap" TextAlignment="Center"/>
+        <TextBlock Text="Для работы приложения необходимо интернет-соединение. Проверьте подключение и попробуйте снова."
+                   Foreground="#8892b0" FontSize="13"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap" TextAlignment="Center"/>
+        <Button Content="Закрыть приложение"
+                Click="CloseButton_Click"
+                HorizontalAlignment="Center"
+                Background="#ff6b6b" Foreground="White"
+                FontWeight="Bold" FontSize="14"
+                Padding="24,10" CornerRadius="8"
+                BorderThickness="0"/>
+    </StackPanel>
+</Window>
