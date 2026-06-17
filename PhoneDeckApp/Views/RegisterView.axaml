@@ -1,0 +1,68 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PhoneDeckApp.ViewModels"
+             x:Class="PhoneDeckApp.Views.RegisterView"
+             x:DataType="vm:RegisterViewModel">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="420">
+        <Border Background="#16213e" CornerRadius="16" Padding="40">
+            <StackPanel Spacing="12">
+
+                <TextBlock Text="Регистрация" FontSize="24" FontWeight="Bold"
+                           Foreground="White" HorizontalAlignment="Center"/>
+                <TextBlock Text="Заполните все данные" FontSize="13"
+                           Foreground="#8892b0" HorizontalAlignment="Center"
+                           Margin="0,0,0,8"/>
+
+                <TextBlock Text="Имя пользователя" Foreground="#8892b0" FontSize="12"/>
+                <TextBox Text="{Binding Username}" Watermark="Логин" Classes="authInput"/>
+
+                <Grid ColumnDefinitions="*,*" >
+                    <StackPanel Grid.Column="0" Spacing="4" Margin="0,0,8,0">
+                        <TextBlock Text="Пароль" Foreground="#8892b0" FontSize="12"/>
+                        <TextBox Text="{Binding Password}" PasswordChar="*"
+                                 Watermark="Пароль" Classes="authInput"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Spacing="4">
+                        <TextBlock Text="Повторите пароль" Foreground="#8892b0" FontSize="12"/>
+                        <TextBox Text="{Binding ConfirmPassword}" PasswordChar="*"
+                                 Watermark="Повторите" Classes="authInput"/>
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock Text="Фамилия" Foreground="#8892b0" FontSize="12"/>
+                <TextBox Text="{Binding LastName}" Watermark="Фамилия" Classes="authInput"/>
+
+                <Grid ColumnDefinitions="*,*">
+                    <StackPanel Grid.Column="0" Spacing="4" Margin="0,0,8,0">
+                        <TextBlock Text="Имя" Foreground="#8892b0" FontSize="12"/>
+                        <TextBox Text="{Binding FirstName}" Watermark="Имя" Classes="authInput"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Spacing="4">
+                        <TextBlock Text="Отчество" Foreground="#8892b0" FontSize="12"/>
+                        <TextBox Text="{Binding Patronymic}" Watermark="Отчество" Classes="authInput"/>
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock Text="Модель телефона" Foreground="#8892b0" FontSize="12"/>
+                <TextBox Text="{Binding PhoneModel}" Watermark="Например: iPhone 14 Pro"
+                         Classes="authInput"/>
+
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="#ff6b6b" FontSize="12"
+                           IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+                <Button Content="Зарегистрироваться"
+                        Command="{Binding RegisterCommand}"
+                        Classes="primaryBtn"
+                        Margin="0,8,0,0"/>
+
+                <Button Content="Уже есть аккаунт? Войти"
+                        Command="{Binding GoToLoginCommand}"
+                        Classes="linkBtn"/>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+
+</UserControl>
