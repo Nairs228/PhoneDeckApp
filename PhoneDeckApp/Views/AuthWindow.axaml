@@ -1,0 +1,9 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="PhoneDeckApp.Views.AuthWindow"
+        Title="PhoneDeck"
+        Width="500" Height="650"
+        MinWidth="500" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#1a1a2e"
+        CanResize="False"/>
