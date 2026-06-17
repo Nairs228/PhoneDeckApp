@@ -1,0 +1,46 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PhoneDeckApp.App"
+             xmlns:local="using:PhoneDeckApp"
+             RequestedThemeVariant="Dark">
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI, Arial, sans-serif"/>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="FontFamily" Value="Segoe UI, Arial, sans-serif"/>
+        </Style>
+        <Style Selector="TextBox.authInput">
+            <Setter Property="Background" Value="#0f3460"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style Selector="Button.primaryBtn">
+            <Setter Property="Background" Value="#64ffda"/>
+            <Setter Property="Foreground" Value="#1a1a2e"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0,12"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style Selector="Button.linkBtn">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#8892b0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Application.Styles>
+
+</Application>
