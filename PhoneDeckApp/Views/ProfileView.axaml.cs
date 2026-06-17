@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Avalonia.Controls;
+
+namespace PhoneDeckApp.Views
+{
+    public partial class ProfileView : UserControl
+    {
+        public ProfileView() => InitializeComponent();
+    }
+}

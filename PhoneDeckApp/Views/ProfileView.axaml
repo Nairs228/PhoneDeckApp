@@ -1,0 +1,75 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PhoneDeckApp.ViewModels"
+             x:Class="PhoneDeckApp.Views.ProfileView"
+             x:DataType="vm:ProfileViewModel">
+    <ScrollViewer>
+        <StackPanel Spacing="16" MaxWidth="600">
+            <TextBlock Text="Профиль" FontSize="26" FontWeight="Bold" Foreground="White"/>
+
+            <!-- Уведомление успех -->
+            <Border Background="#1a3a2a" CornerRadius="8" Padding="14,10"
+                    IsVisible="{Binding IsSuccess}">
+                <TextBlock Text="✓ Изменения сохранены" Foreground="#64ffda" FontSize="13"/>
+            </Border>
+
+            <!-- Уведомление ошибка -->
+            <Border Background="#3a1a1a" CornerRadius="8" Padding="14,10"
+                    IsVisible="{Binding IsError}">
+                <TextBlock Text="{Binding Message}" Foreground="#ff6b6b" FontSize="13"/>
+            </Border>
+
+            <Border Classes="card">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Личные данные" FontSize="16" FontWeight="SemiBold" Foreground="White"/>
+
+                    <TextBlock Text="Фамилия" Foreground="#8892b0" FontSize="12"/>
+                    <TextBox Text="{Binding LastName}" Classes="authInput"/>
+
+                    <Grid ColumnDefinitions="*,*">
+                        <StackPanel Grid.Column="0" Spacing="4" Margin="0,0,8,0">
+                            <TextBlock Text="Имя" Foreground="#8892b0" FontSize="12"/>
+                            <TextBox Text="{Binding FirstName}" Classes="authInput"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock Text="Отчество" Foreground="#8892b0" FontSize="12"/>
+                            <TextBox Text="{Binding Patronymic}" Classes="authInput"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="Модель телефона" Foreground="#8892b0" FontSize="12"/>
+                    <TextBox Text="{Binding PhoneModel}" Classes="authInput"/>
+
+                    <TextBlock Text="Логин" Foreground="#8892b0" FontSize="12"/>
+                    <TextBox Text="{Binding Username}" Classes="authInput"/>
+
+                    <Button Content="Сохранить профиль" Command="{Binding SaveProfileCommand}"
+                            Classes="primaryBtn" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="card">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Смена пароля" FontSize="16" FontWeight="SemiBold" Foreground="White"/>
+
+                    <TextBlock Text="Текущий пароль" Foreground="#8892b0" FontSize="12"/>
+                    <TextBox Text="{Binding CurrentPassword}" PasswordChar="*" Classes="authInput"/>
+
+                    <Grid ColumnDefinitions="*,*">
+                        <StackPanel Grid.Column="0" Spacing="4" Margin="0,0,8,0">
+                            <TextBlock Text="Новый пароль" Foreground="#8892b0" FontSize="12"/>
+                            <TextBox Text="{Binding NewPassword}" PasswordChar="*" Classes="authInput"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock Text="Повторите пароль" Foreground="#8892b0" FontSize="12"/>
+                            <TextBox Text="{Binding ConfirmNewPassword}" PasswordChar="*" Classes="authInput"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Button Content="Изменить пароль" Command="{Binding ChangePasswordCommand}"
+                            Classes="primaryBtn" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
