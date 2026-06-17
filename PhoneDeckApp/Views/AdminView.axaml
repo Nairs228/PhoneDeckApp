@@ -1,0 +1,134 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PhoneDeckApp.ViewModels"
+             xmlns:m="using:PhoneDeckApp.Models"
+             x:Class="PhoneDeckApp.Views.AdminView"
+             x:DataType="vm:AdminViewModel">
+    <ScrollViewer>
+        <StackPanel Spacing="16">
+            <TextBlock Text="Админ панель" FontSize="26" FontWeight="Bold" Foreground="White"/>
+
+            <!-- Панель редактирования -->
+            <Border Classes="card" IsVisible="{Binding IsEditing}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Редактирование пользователя" FontSize="16"
+                               FontWeight="SemiBold" Foreground="White"/>
+                    <Grid ColumnDefinitions="*,*">
+                        <StackPanel Grid.Column="0" Spacing="6" Margin="0,0,8,0">
+                            <TextBlock Text="Фамилия" Foreground="#8892b0" FontSize="12"/>
+                            <TextBox Text="{Binding EditLastName}" Classes="authInput"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="6">
+                            <TextBlock Text="Имя" Foreground="#8892b0" FontSize="12"/>
+                            <TextBox Text="{Binding EditFirstName}" Classes="authInput"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*">
+                        <StackPanel Grid.Column="0" Spacing="6" Margin="0,0,8,0">
+                            <TextBlock Text="Отчество" Foreground="#8892b0" FontSize="12"/>
+                            <TextBox Text="{Binding EditPatronymic}" Classes="authInput"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="6">
+                            <TextBlock Text="Модель телефона" Foreground="#8892b0" FontSize="12"/>
+                            <TextBox Text="{Binding EditPhoneModel}" Classes="authInput"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Spacing="6">
+                            <TextBlock Text="Логин" Foreground="#8892b0" FontSize="12"/>
+                            <TextBox Text="{Binding EditUsername}" Classes="authInput"/>
+                        </StackPanel>
+                        <CheckBox Grid.Column="1" Content="Администратор"
+                                  IsChecked="{Binding EditIsAdmin}"
+                                  Foreground="White" Margin="16,20,0,0"/>
+                    </Grid>
+                    <TextBlock Text="{Binding EditMessage}" Foreground="#64ffda" FontSize="12"
+                               IsVisible="{Binding EditMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Content="Сохранить" Command="{Binding SaveEditCommand}"
+                                Classes="primaryBtn" Width="140"/>
+                        <Button Content="Отмена" Command="{Binding CancelEditCommand}"
+                                Background="#0f3460" Foreground="White"
+                                Padding="16,12" CornerRadius="8" BorderThickness="0" Width="80"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Таблица пользователей -->
+            <Border Classes="card">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Управление пользователями" FontSize="16"
+                               FontWeight="SemiBold" Foreground="White"/>
+                    <Grid ColumnDefinitions="50,120,*,*,100,100,120">
+                        <TextBlock Grid.Column="0" Text="ID" Foreground="#64ffda" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1" Text="Логин" Foreground="#64ffda" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="2" Text="Фамилия" Foreground="#64ffda" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="3" Text="Телефон" Foreground="#64ffda" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="4" Text="Роль" Foreground="#64ffda" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="5" Text="Права" Foreground="#64ffda" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="6" Text="Изменить" Foreground="#64ffda" FontWeight="Bold"/>
+                    </Grid>
+                    <Rectangle Height="1" Fill="#0f3460"/>
+                    <ItemsControl ItemsSource="{Binding Users}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="m:User">
+                                <Grid ColumnDefinitions="50,120,*,*,100,100,120" Margin="0,5,0,5">
+                                    <TextBlock Grid.Column="0" Text="{Binding Id}" Foreground="#8892b0"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Username}" Foreground="White"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding LastName}" Foreground="White"/>
+                                    <TextBlock Grid.Column="3" Text="{Binding PhoneModel}" Foreground="White"/>
+                                    <TextBlock Grid.Column="4"
+                                               Text="{Binding IsAdmin, Converter={x:Static vm:AdminViewModel.RoleConverter}}"
+                                               Foreground="{Binding IsAdmin, Converter={x:Static vm:AdminViewModel.RoleColorConverter}}"/>
+                                    <Button Grid.Column="5"
+                                            Content="{Binding IsAdmin, Converter={x:Static vm:AdminViewModel.ActionConverter}}"
+                                            Command="{Binding $parent[UserControl].((vm:AdminViewModel)DataContext).ToggleAdminCommand}"
+                                            CommandParameter="{Binding}"
+                                            Padding="6,4" CornerRadius="6"
+                                            Background="#0f3460" Foreground="White" BorderThickness="0"/>
+                                    <Button Grid.Column="6" Content="Редактировать"
+                                            Command="{Binding $parent[UserControl].((vm:AdminViewModel)DataContext).EditUserCommand}"
+                                            CommandParameter="{Binding}"
+                                            Padding="6,4" CornerRadius="6"
+                                            Background="#64ffda" Foreground="#1a1a2e" BorderThickness="0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <!-- Здоровье БД -->
+            <Border Classes="card">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Состояние баз данных" FontSize="16"
+                               FontWeight="SemiBold" Foreground="White"/>
+                    <Grid ColumnDefinitions="*,*">
+                        <Border Grid.Column="0" Background="#0f3460" CornerRadius="8"
+                                Padding="16" Margin="0,0,8,0">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="users.db" Foreground="#64ffda" FontWeight="Bold"/>
+                                <TextBlock Text="Работоспособна" Foreground="#42BA66"/>
+                                <TextBlock Text="{Binding UserDbCount, StringFormat='Записей: {0}'}"
+                                           Foreground="#8892b0" FontSize="12"/>
+                                <TextBlock Text="{Binding UserDbPath}" Foreground="#8892b0"
+                                           FontSize="11" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="1" Background="#0f3460" CornerRadius="8" Padding="16">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="devices.db" Foreground="#64ffda" FontWeight="Bold"/>
+                                <TextBlock Text="Работоспособна" Foreground="#42BA66"/>
+                                <TextBlock Text="{Binding DeviceDbCount, StringFormat='Записей: {0}'}"
+                                           Foreground="#8892b0" FontSize="12"/>
+                                <TextBlock Text="{Binding DeviceDbPath}" Foreground="#8892b0"
+                                           FontSize="11" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
