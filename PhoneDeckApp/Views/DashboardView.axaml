@@ -1,0 +1,81 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PhoneDeckApp.ViewModels"
+             xmlns:m="using:PhoneDeckApp.Models"
+             x:Class="PhoneDeckApp.Views.DashboardView"
+             x:DataType="vm:DashboardViewModel">
+    <StackPanel Spacing="16">
+        <TextBlock Text="Дашборд" FontSize="26" FontWeight="Bold" Foreground="White"/>
+
+        <Grid ColumnDefinitions="*,*,*">
+            <Border Grid.Column="0" Classes="card" Margin="0,0,12,0">
+                <StackPanel HorizontalAlignment="Center" Spacing="4">
+                    <TextBlock Text="{Binding TotalSessions}" FontSize="36"
+                               FontWeight="Bold" Foreground="#64ffda" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Всего сессий" Foreground="#8892b0" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" Classes="card" Margin="0,0,12,0">
+                <StackPanel HorizontalAlignment="Center" Spacing="4">
+                    <TextBlock Text="{Binding TotalUsers}" FontSize="36"
+                               FontWeight="Bold" Foreground="#64ffda" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Пользователей" Foreground="#8892b0" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="2" Classes="card">
+                <StackPanel HorizontalAlignment="Center" Spacing="7">
+                    <TextBlock Text="Система бонусов" FontSize="26" FontWeight="Bold"
+                               Foreground="#64ffda" HorizontalAlignment="Center"/>
+                    <TextBlock Text="60 минут = 1 бонус" Foreground="#8892b0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Border Classes="card">
+            <StackPanel Spacing="12">
+                <TextBlock Text="Последние сессии" FontSize="16" FontWeight="SemiBold" Foreground="White"/>
+                <Grid ColumnDefinitions="50,*,*,80,100,100">
+                    <TextBlock Grid.Column="0" Text="ID" Foreground="#64ffda" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1" Text="Имя" Foreground="#64ffda" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="2" Text="Модель" Foreground="#64ffda" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="3" Text="Заряд" Foreground="#64ffda" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="4" Text="Подключен" Foreground="#64ffda" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="5" Text="Отключен" Foreground="#64ffda" FontWeight="Bold"/>
+                </Grid>
+                <Rectangle Height="1" Fill="#0f3460"/>
+                <ItemsControl ItemsSource="{Binding RecentSessions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="m:Session">
+                            <Grid ColumnDefinitions="50,*,*,80,100,100" Margin="0,4,0,4">
+                                <TextBlock Grid.Column="0" Text="{Binding Id}" Foreground="#8892b0"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Name}" Foreground="White"/>
+                                <TextBlock Grid.Column="2" Text="{Binding Model}" Foreground="White"/>
+                                <TextBlock Grid.Column="3" Text="{Binding Charge}" Foreground="White"/>
+                                <TextBlock Grid.Column="4" Text="{Binding ConnectionTime}" Foreground="White"/>
+                                <TextBlock Grid.Column="5" Text="{Binding DisconnectionTime}" Foreground="White"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Пагинация -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="0,8,0,0">
+                    <Button Content="←" Command="{Binding PrevPageCommand}"
+                            Background="#0f3460" Foreground="White" BorderThickness="0"
+                            CornerRadius="6" Padding="12,6"
+                            IsEnabled="{Binding CurrentPage, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                    <Border Background="#0f3460" CornerRadius="6" Padding="16,6">
+                        <TextBlock Foreground="White"
+                                   Text="{Binding CurrentPage, StringFormat='Стр. {0}'}"/>
+                    </Border>
+                    <TextBlock Text="{Binding TotalPages, StringFormat='из {0}'}"
+                               Foreground="#8892b0" VerticalAlignment="Center"/>
+                    <Button Content="→" Command="{Binding NextPageCommand}"
+                            Background="#0f3460" Foreground="White" BorderThickness="0"
+                            CornerRadius="6" Padding="12,6"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>
