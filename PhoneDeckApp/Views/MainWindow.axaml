@@ -1,0 +1,113 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PhoneDeckApp.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
+        x:Class="PhoneDeckApp.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="PhoneDeck"
+        MinWidth="900"
+        MinHeight="600"
+        Width="1100" Height="700"
+        Background="#1a1a2e">
+
+    <Grid ColumnDefinitions="220,*">
+
+        <!-- Боковое меню -->
+        <Border Grid.Column="0" Background="#16213e" Padding="0,20,0,20">
+            <StackPanel>
+
+                <!-- Логотип -->
+                <StackPanel Margin="20,0,20,30">
+                    <TextBlock Text="📱 PhoneDeck"
+                               FontSize="20" FontWeight="Bold"
+                               Foreground="White"/>
+                    <TextBlock Text="Управление станциями"
+                               FontSize="11" Foreground="#8892b0"
+                               Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <!-- Пункты меню -->
+                <Button Content="📊  Дашборд"
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="dashboard"
+                        Classes="navBtn"
+                        Classes.active="{Binding IsDashboard}"/>
+
+                <Button Content="📋  История сессий"
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="sessions"
+                        Classes="navBtn"
+                        Classes.active="{Binding IsSessions}"/>
+
+                <Button Content="👤  Профиль"
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="profile"
+                        Classes="navBtn"
+                        Classes.active="{Binding IsProfile}"/>
+
+                <Button Content="🎁  Бонусы"
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="bonuses"
+                        Classes="navBtn"
+                        Classes.active="{Binding IsBonuses}"/>
+
+                <Button Content="⚙️  Админ"
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="admin"
+                        Classes="navBtn"
+                        Classes.active="{Binding IsAdmin}"
+                        IsVisible="{Binding IsAdminUser}"/>
+
+                <!-- Разделитель -->
+                <Border Height="1" Background="#0f3460" Margin="20,20,20,20"/>
+
+                <!-- Выход -->
+                <Button Content="🚪  Выйти"
+                        Command="{Binding LogoutCommand}"
+                        Classes="navBtn logout"/>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Основной контент -->
+        <Border Grid.Column="1" Padding="30">
+            <ContentControl Content="{Binding CurrentPage}"/>
+        </Border>
+
+    </Grid>
+
+    <Window.Styles>
+        <Style Selector="Button.navBtn">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#8892b0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.navBtn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#0f3460"/>
+            <Setter Property="TextElement.Foreground" Value="White"/>
+        </Style>
+        <Style Selector="Button.navBtn.active">
+            <Setter Property="Background" Value="#0f3460"/>
+            <Setter Property="Foreground" Value="#64ffda"/>
+            <Setter Property="BorderThickness" Value="3,0,0,0"/>
+            <Setter Property="BorderBrush" Value="#64ffda"/>
+        </Style>
+        <Style Selector="Button.navBtn.logout">
+            <Setter Property="Foreground" Value="#ff6b6b"/>
+        </Style>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="#16213e"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+        </Style>
+    </Window.Styles>
+
+</Window>
